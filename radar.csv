@@ -3,29 +3,20 @@ ADRs / design docs,adopt,techniques,FALSE,"<p>Write down the why, not just the w
 Continuous delivery,adopt,techniques,FALSE,"<p>Small, always-releasable changes through an automated pipeline. Deploys should be boring, frequent and reversible.</p>"
 Feature flags,adopt,techniques,FALSE,<p>Decouple deploy from release and make rollback a config change. Adopt for anything risky or user-facing.</p>
 Infrastructure as Code,adopt,techniques,FALSE,"<p>Non-negotiable for anything beyond a scratch environment: reviewed, versioned, reproducible infrastructure. Manual console changes are how you get drift and outages.</p>"
-Monorepo,adopt,techniques,FALSE,"<p>Default for related projects: atomic changes, shared tooling, one CI.</p>
-<p>Adopt when the projects genuinely change together; split when they don't.</p>"
+Monorepo,adopt,techniques,FALSE,"<p>Default for related projects: atomic changes, shared tooling, one CI.</p><p>Adopt when the projects genuinely change together; split when they don't.</p>"
 Observability,adopt,techniques,FALSE,"<p>Emit structured events, traces and metrics from day one. Debugging anything on-call without them is guesswork.</p>"
 Pair programming,adopt,techniques,FALSE,"<p>The best tool I know for spreading knowledge and catching mistakes early. Adopt for tricky or high-risk work — not all day, every day.</p>"
-Docker,adopt,tools,FALSE,"<p>Default way to package and run anything, dev and prod. The image is the unit of deployment.</p>
-<p>Avoid only where a serverless deploy or a single compiled binary is genuinely simpler.</p>"
-GitHub Actions,adopt,tools,FALSE,"<p>CI/CD that lives next to the code, with a huge marketplace of actions and no extra infrastructure to run.</p>
-<p>Good enough for almost everything; self-hosted runners only once I hit its limits.</p>"
+Docker,adopt,tools,FALSE,"<p>Default way to package and run anything, dev and prod. The image is the unit of deployment.</p><p>Avoid only where a serverless deploy or a single compiled binary is genuinely simpler.</p>"
+GitHub Actions,adopt,tools,FALSE,"<p>CI/CD that lives next to the code, with a huge marketplace of actions and no extra infrastructure to run.</p><p>Good enough for almost everything; self-hosted runners only once I hit its limits.</p>"
 OpenTelemetry,adopt,tools,FALSE,"<p>Default instrumentation format for traces, metrics and logs — vendor-neutral, so I'm not locked to one backend. Instrument once, ship wherever.</p>"
-PostgreSQL,adopt,tools,FALSE,"<p>Default database, full stop. JSONB, extensions and a real query planner mean I rarely need a second datastore.</p>
-<p>Reach past it only for genuinely specialised needs — search, extreme write scale, embeddings.</p>"
-Redis,adopt,tools,FALSE,"<p>Default cache, lightweight queue and ephemeral state store. Cheap to run and hard to misuse.</p>
-<p>Not a primary source of truth.</p>"
+PostgreSQL,adopt,tools,FALSE,"<p>Default database, full stop. JSONB, extensions and a real query planner mean I rarely need a second datastore.</p><p>Reach past it only for genuinely specialised needs — search, extreme write scale, embeddings.</p>"
+Redis,adopt,tools,FALSE,"<p>Default cache, lightweight queue and ephemeral state store. Cheap to run and hard to misuse.</p><p>Not a primary source of truth.</p>"
 Ruff,adopt,tools,FALSE,"<p>Replaces flake8, isort and Black with one fast tool and sane defaults. No reason to keep the old chain.</p>"
-Terraform / OpenTofu,adopt,tools,FALSE,"<p>Default for provisioning cloud infrastructure: declarative, reviewable and state-tracked. OpenTofu is the hedge if licensing becomes a problem.</p>
-<p>I'd avoid it for dynamic, high-churn resources better managed from the application or from Kubernetes manifests.</p>"
+Terraform / OpenTofu,adopt,tools,FALSE,"<p>Default for provisioning cloud infrastructure: declarative, reviewable and state-tracked. OpenTofu is the hedge if licensing becomes a problem.</p><p>I'd avoid it for dynamic, high-churn resources better managed from the application or from Kubernetes manifests.</p>"
 uv,adopt,tools,FALSE,"<p>Fast, single tool for virtualenvs, dependencies and Python versions. It has made the old pip/virtualenv/pyenv dance obsolete for me.</p>"
-Vite,adopt,tools,FALSE,"<p>Default frontend build and dev server: fast HMR, minimal config, works across most stacks.</p>
-<p>Step down to a framework's own tooling only if it conflicts.</p>"
-AWS,adopt,platforms,FALSE,"<p>Default cloud. I know it, it has everything, and the boring services — S3, RDS, SQS, Lambda — are reliable.</p>
-<p>Cost and complexity are the price.</p>"
-AWS Lambda / serverless,adopt,platforms,FALSE,"<p>Default for small, event-driven and bursty workloads: no servers, pay per use, scales to zero.</p>
-<p>Avoid for long-running, latency-sensitive or stateful work.</p>"
+Vite,adopt,tools,FALSE,"<p>Default frontend build and dev server: fast HMR, minimal config, works across most stacks.</p><p>Step down to a framework's own tooling only if it conflicts.</p>"
+AWS,adopt,platforms,FALSE,"<p>Default cloud. I know it, it has everything, and the boring services — S3, RDS, SQS, Lambda — are reliable.</p><p>Cost and complexity are the price.</p>"
+AWS Lambda / serverless,adopt,platforms,FALSE,"<p>Default for small, event-driven and bursty workloads: no servers, pay per use, scales to zero.</p><p>Avoid for long-running, latency-sensitive or stateful work.</p>"
 Docker Compose,adopt,platforms,FALSE,"<p>Default way to run a multi-service stack locally. If something can't run under Compose, that's usually a smell worth fixing.</p>"
 GitHub,adopt,platforms,FALSE,"<p>Default home for code, review, issues and CI. Network effects make it the obvious choice.</p>"
 Linux,adopt,platforms,FALSE,"<p>Everything I deploy runs here, and with containers and Nix it's a workable dev target too.</p>"
