@@ -1,8 +1,8 @@
 ---
 name: Kubernetes
-ring: adopt
+ring: trial
 isNew: false
 ---
-PLACEHOLDER: replace with your own rationale.
+Valuable once there are many services and a platform team, but it's a lot of machinery for a small system.
 
-Say **why** it's in this ring, when you'd avoid it, and what you'd use instead. Links work too, e.g. [the docs](https://kubernetes.io).
+Trial: happy to use it on real work with managed control planes, and I'd avoid running it by hand for one or two services.
