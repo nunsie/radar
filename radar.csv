@@ -1,0 +1,6 @@
+name,ring,quadrant,isNew,description
+Kubernetes,adopt,platforms,FALSE,"<p>PLACEHOLDER: replace with your own rationale.</p><p>Say <strong>why</strong> it's in this ring, when you'd avoid it, and what you'd use instead. Links work too, e.g. <a href=""https://kubernetes.io"">the docs</a>.</p>"
+Python,adopt,languages & frameworks,FALSE,<p>PLACEHOLDER: replace with your own rationale.</p>
+API-first design,trial,techniques,TRUE,<p>PLACEHOLDER: replace with your own rationale.</p>
+Database,assess,tools,FALSE,<p>PLACEHOLDER: replace with your own rationale. (Probably worth naming the actual database.)</p>
+Service mesh,hold,tools,FALSE,"<p>PLACEHOLDER: replace with your own rationale, including ""quotes"", commas, and line breaks to prove CSV escaping works.</p>"

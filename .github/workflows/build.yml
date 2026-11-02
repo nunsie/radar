@@ -1,0 +1,81 @@
+name: Build radar
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "quadrants/**"
+      - "build.py"
+      - "requirements.txt"
+      - ".github/workflows/build.yml"
+  pull_request:
+    paths:
+      - "quadrants/**"
+      - "build.py"
+      - "requirements.txt"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-radar-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # On PRs we only validate; on pushes to main we build and commit radar.csv.
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build radar.csv
+        run: python build.py
+
+      - name: Commit radar.csv if it changed
+        run: |
+          if git diff --quiet -- radar.csv; then
+            echo "radar.csv is already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add radar.csv
+          git commit -m "Rebuild radar.csv"
+          git push
+
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Validate entries
+        run: python build.py --check
+
+      - name: Check radar.csv is up to date
+        run: |
+          python build.py
+          if ! git diff --quiet -- radar.csv; then
+            echo "::error::radar.csv is out of date. Run 'python build.py' and commit the result."
+            git diff -- radar.csv
+            exit 1
+          fi
