@@ -47,6 +47,10 @@ Agentic engineering,trial,techniques,TRUE,"<p>Working with coding agents as a re
 <p>Trial: worth doing on real work where I can review the output and the blast radius is contained. I keep humans on the design, the interfaces and the final call.</p>"
 Software factory,trial,techniques,TRUE,"<p>A pipeline where agents take work end to end — spec in, reviewed change out — with strong automated checks acting as the gate.</p>
 <p>Trial: promising on well-specified, well-tested, low-ambiguity work. Not yet for anything where the requirements are still being discovered or the failure mode is expensive.</p>"
+GitHub Copilot,trial,tools,TRUE,"<p>Generous subscription limits and a provider that plugs into Pi, so I can do agentic coding without metered API bills.</p>
+<p>Trial: the model menu is narrower than a gateway and the terms move around, but it's the pragmatic default for cheap agent work.</p>"
+Pi coding agent,trial,tools,TRUE,"<p>My default coding agent for real work: a small, hackable CLI that runs the model against actual tools — read, edit, bash — with the session in my terminal and the diff in front of me.</p>
+<p>Trial: useful enough to reach for on anything where I keep the design and review the output, while it's still young enough that I don't hand it the controls.</p>"
 Prisma,trial,tools,FALSE,"<p>Default ORM when I need one: schema-first, and the migration story is pleasant.</p>
 <p>Trial because it's heavy for small scripts and I reach for raw SQL or a query builder just as often.</p>"
 Prometheus + Grafana,trial,tools,FALSE,"<p>The standard metrics, alerting and dashboarding pair, and it plays nicely with OpenTelemetry.</p>
@@ -57,10 +61,14 @@ Vitest,trial,tools,FALSE,"<p>Preferred JavaScript test runner now — fast, Vite
 <p>Trial while I settle the config and mocking story.</p>"
 Cloudflare,trial,platforms,FALSE,"<p>DNS, Workers, R2 and the rest are fast, cheap and pleasant to use.</p>
 <p>Trial because I don't want to depend on a single edge provider for core infrastructure.</p>"
+GitHub Codespaces,trial,platforms,TRUE,"<p>Hosted dev containers that spin up per task — the disposable, reproducible workspace a software factory wants for running agents and their checks in parallel.</p>
+<p>Trial: promising for that, but I'm still working out startup time, cost and how much of my local setup carries over.</p>"
 Kubernetes,trial,platforms,FALSE,"<p>Valuable once there are many services and a platform team, but it's a lot of machinery for a small system.</p>
 <p>Trial: happy to use it on real work with managed control planes, and I'd avoid running it by hand for one or two services.</p>"
 Netlify,trial,platforms,FALSE,"<p>Where I host small frontends and serverless functions — quick to ship and the DX is good.</p>
 <p>Trial because of lock-in and pricing as usage grows; I'd keep the app portable.</p>"
+OpenRouter,trial,platforms,TRUE,"<p>One API across most frontier and open models, with a long tail of cheap and free options that make agentic coding affordable to run all day.</p>
+<p>Trial: ideal for experiments, side projects and picking a model per task, but I'd keep a direct provider fallback for anything important.</p>"
 Railway,trial,platforms,FALSE,"<p>Great developer experience for deploying small apps and workers without a platform team.</p>
 <p>Trial: excellent for prototypes and side projects, less proven under heavy production load.</p>"
 Go,trial,languages & frameworks,FALSE,"<p>Where I'd go for small, fast services and CLI tools: quick builds, a single static binary, straightforward concurrency.</p>
@@ -90,8 +98,12 @@ TanStack Router,assess,languages & frameworks,FALSE,"<p>Type-safe routing with r
 <p>Assess until I've lived with it in something bigger.</p>"
 TDD,hold,techniques,FALSE,"<p>I want the safety net, but writing tests first isn't how I actually work and pretending otherwise wastes time. Prefer test-after plus strong types and integration tests.</p>
 <p>Revisit for gnarly logic where the design pressure genuinely helps.</p>"
+Claude Code,hold,tools,TRUE,"<p>Strong agent, but the usage limits bite right when agentic work gets going, and free models plus free-tier agents now get me 90% of the way there.</p>
+<p>Hold: I'd rather point an open agent at a cheap model or pay per token than fight the subscription limits.</p>"
 CSS-in-JS,hold,tools,FALSE,"<p>styled-components, Emotion and Chakra served me well earlier, but Tailwind plus a small component layer is simpler and faster now.</p>
 <p>Avoid for new work; keep only where an existing codebase already leans on it.</p>"
+OpenCode,hold,tools,TRUE,"<p>Capable agent CLI, but it overlaps almost entirely with Pi and I don't want a second config, permission model and update treadmill for the same job.</p>
+<p>Revisit if I need its provider breadth, or if Pi stops being the right fit.</p>"
 Service mesh,hold,tools,FALSE,"<p>Too much operational complexity for the workloads I run; most of what I want — mTLS, retries, traffic shaping — is available in the ingress or the platform.</p>
 <p>Revisit when there are many heterogeneous services and a team to own it.</p>"
 GCP,hold,platforms,FALSE,"<p>Nothing wrong with it, but I don't have the operational familiarity and the ecosystem momentum isn't where I am.</p>
