@@ -3,20 +3,29 @@ ADRs / design docs,adopt,techniques,FALSE,"<p>Write down the why, not just the w
 Continuous delivery,adopt,techniques,FALSE,"<p>Small, always-releasable changes through an automated pipeline. Deploys should be boring, frequent and reversible.</p>"
 Feature flags,adopt,techniques,FALSE,<p>Decouple deploy from release and make rollback a config change. Adopt for anything risky or user-facing.</p>
 Infrastructure as Code,adopt,techniques,FALSE,"<p>Non-negotiable for anything beyond a scratch environment: reviewed, versioned, reproducible infrastructure. Manual console changes are how you get drift and outages.</p>"
-Monorepo,adopt,techniques,FALSE,"<p>Default for related projects: atomic changes, shared tooling, one CI.</p><p>Adopt when the projects genuinely change together; split when they don't.</p>"
+Monorepo,adopt,techniques,FALSE,"<p>Default for related projects: atomic changes, shared tooling, one CI.</p>
+<p>Adopt when the projects genuinely change together; split when they don't.</p>"
 Observability,adopt,techniques,FALSE,"<p>Emit structured events, traces and metrics from day one. Debugging anything on-call without them is guesswork.</p>"
 Pair programming,adopt,techniques,FALSE,"<p>The best tool I know for spreading knowledge and catching mistakes early. Adopt for tricky or high-risk work — not all day, every day.</p>"
-Docker,adopt,tools,FALSE,"<p>Default way to package and run anything, dev and prod. The image is the unit of deployment.</p><p>Avoid only where a serverless deploy or a single compiled binary is genuinely simpler.</p>"
-GitHub Actions,adopt,tools,FALSE,"<p>CI/CD that lives next to the code, with a huge marketplace of actions and no extra infrastructure to run.</p><p>Good enough for almost everything; self-hosted runners only once I hit its limits.</p>"
+Docker,adopt,tools,FALSE,"<p>Default way to package and run anything, dev and prod. The image is the unit of deployment.</p>
+<p>Avoid only where a serverless deploy or a single compiled binary is genuinely simpler.</p>"
+GitHub Actions,adopt,tools,FALSE,"<p>CI/CD that lives next to the code, with a huge marketplace of actions and no extra infrastructure to run.</p>
+<p>Good enough for almost everything; self-hosted runners only once I hit its limits.</p>"
 OpenTelemetry,adopt,tools,FALSE,"<p>Default instrumentation format for traces, metrics and logs — vendor-neutral, so I'm not locked to one backend. Instrument once, ship wherever.</p>"
-PostgreSQL,adopt,tools,FALSE,"<p>Default database, full stop. JSONB, extensions and a real query planner mean I rarely need a second datastore.</p><p>Reach past it only for genuinely specialised needs — search, extreme write scale, embeddings.</p>"
-Redis,adopt,tools,FALSE,"<p>Default cache, lightweight queue and ephemeral state store. Cheap to run and hard to misuse.</p><p>Not a primary source of truth.</p>"
+PostgreSQL,adopt,tools,FALSE,"<p>Default database, full stop. JSONB, extensions and a real query planner mean I rarely need a second datastore.</p>
+<p>Reach past it only for genuinely specialised needs — search, extreme write scale, embeddings.</p>"
+Redis,adopt,tools,FALSE,"<p>Default cache, lightweight queue and ephemeral state store. Cheap to run and hard to misuse.</p>
+<p>Not a primary source of truth.</p>"
 Ruff,adopt,tools,FALSE,"<p>Replaces flake8, isort and Black with one fast tool and sane defaults. No reason to keep the old chain.</p>"
-Terraform / OpenTofu,adopt,tools,FALSE,"<p>Default for provisioning cloud infrastructure: declarative, reviewable and state-tracked. OpenTofu is the hedge if licensing becomes a problem.</p><p>I'd avoid it for dynamic, high-churn resources better managed from the application or from Kubernetes manifests.</p>"
+Terraform / OpenTofu,adopt,tools,FALSE,"<p>Default for provisioning cloud infrastructure: declarative, reviewable and state-tracked. OpenTofu is the hedge if licensing becomes a problem.</p>
+<p>I'd avoid it for dynamic, high-churn resources better managed from the application or from Kubernetes manifests.</p>"
 uv,adopt,tools,FALSE,"<p>Fast, single tool for virtualenvs, dependencies and Python versions. It has made the old pip/virtualenv/pyenv dance obsolete for me.</p>"
-Vite,adopt,tools,FALSE,"<p>Default frontend build and dev server: fast HMR, minimal config, works across most stacks.</p><p>Step down to a framework's own tooling only if it conflicts.</p>"
-AWS,adopt,platforms,FALSE,"<p>Default cloud. I know it, it has everything, and the boring services — S3, RDS, SQS, Lambda — are reliable.</p><p>Cost and complexity are the price.</p>"
-AWS Lambda / serverless,adopt,platforms,FALSE,"<p>Default for small, event-driven and bursty workloads: no servers, pay per use, scales to zero.</p><p>Avoid for long-running, latency-sensitive or stateful work.</p>"
+Vite,adopt,tools,FALSE,"<p>Default frontend build and dev server: fast HMR, minimal config, works across most stacks.</p>
+<p>Step down to a framework's own tooling only if it conflicts.</p>"
+AWS,adopt,platforms,FALSE,"<p>Default cloud. I know it, it has everything, and the boring services — S3, RDS, SQS, Lambda — are reliable.</p>
+<p>Cost and complexity are the price.</p>"
+AWS Lambda / serverless,adopt,platforms,FALSE,"<p>Default for small, event-driven and bursty workloads: no servers, pay per use, scales to zero.</p>
+<p>Avoid for long-running, latency-sensitive or stateful work.</p>"
 Docker Compose,adopt,platforms,FALSE,"<p>Default way to run a multi-service stack locally. If something can't run under Compose, that's usually a smell worth fixing.</p>"
 GitHub,adopt,platforms,FALSE,"<p>Default home for code, review, issues and CI. Network effects make it the obvious choice.</p>"
 Linux,adopt,platforms,FALSE,"<p>Everything I deploy runs here, and with containers and Nix it's a workable dev target too.</p>"
@@ -30,30 +39,59 @@ React,adopt,languages & frameworks,FALSE,"<p>Still my default view layer: the co
 <p>I'd avoid it for essentially static pages where plain HTML or a server-rendered template carries far less machinery.</p>"
 Tailwind CSS,adopt,languages & frameworks,FALSE,"<p>Utility CSS removes the naming-and-abstraction tax and lets me build consistent UI quickly.</p>
 <p>Fine to skip if the team already has a strong component library or design-token system.</p>"
+Tauri,adopt,languages & frameworks,FALSE,"<p>Default for desktop apps: a React front end over a Rust core, with small binaries and no bundled browser.</p>
+<p>Used it for a run of launchers and it's my go-to over Electron.</p>"
 TypeScript,adopt,languages & frameworks,FALSE,"<p>Default for anything with a UI or a browser in the loop. Types catch the class of bug I actually hit, and the tooling is the best in class.</p>
 <p>Not worth the ceremony for throwaway scripts.</p>"
 Agentic engineering,trial,techniques,TRUE,"<p>Working with coding agents as a real part of the loop — giving them tools, context and multi-step goals rather than treating them as fancy autocomplete.</p>
 <p>Trial: worth doing on real work where I can review the output and the blast radius is contained. I keep humans on the design, the interfaces and the final call.</p>"
 Software factory,trial,techniques,TRUE,"<p>A pipeline where agents take work end to end — spec in, reviewed change out — with strong automated checks acting as the gate.</p>
 <p>Trial: promising on well-specified, well-tested, low-ambiguity work. Not yet for anything where the requirements are still being discovered or the failure mode is expensive.</p>"
+Prisma,trial,tools,FALSE,"<p>Default ORM when I need one: schema-first, and the migration story is pleasant.</p>
+<p>Trial because it's heavy for small scripts and I reach for raw SQL or a query builder just as often.</p>"
 Prometheus + Grafana,trial,tools,FALSE,"<p>The standard metrics, alerting and dashboarding pair, and it plays nicely with OpenTelemetry.</p>
 <p>Trial because running it well has a real operational cost.</p>"
 RabbitMQ,trial,tools,FALSE,"<p>Where I'd reach for a traditional broker with real routing and acknowledgements.</p>
 <p>Trialling rather than adopting because I haven't needed it enough to have hard-won opinions.</p>"
+Vitest,trial,tools,FALSE,"<p>Preferred JavaScript test runner now — fast, Vite-native and Jest-compatible enough to migrate.</p>
+<p>Trial while I settle the config and mocking story.</p>"
 Cloudflare,trial,platforms,FALSE,"<p>DNS, Workers, R2 and the rest are fast, cheap and pleasant to use.</p>
 <p>Trial because I don't want to depend on a single edge provider for core infrastructure.</p>"
 Kubernetes,trial,platforms,FALSE,"<p>Valuable once there are many services and a platform team, but it's a lot of machinery for a small system.</p>
 <p>Trial: happy to use it on real work with managed control planes, and I'd avoid running it by hand for one or two services.</p>"
+Netlify,trial,platforms,FALSE,"<p>Where I host small frontends and serverless functions — quick to ship and the DX is good.</p>
+<p>Trial because of lock-in and pricing as usage grows; I'd keep the app portable.</p>"
 Railway,trial,platforms,FALSE,"<p>Great developer experience for deploying small apps and workers without a platform team.</p>
 <p>Trial: excellent for prototypes and side projects, less proven under heavy production load.</p>"
 Go,trial,languages & frameworks,FALSE,"<p>Where I'd go for small, fast services and CLI tools: quick builds, a single static binary, straightforward concurrency.</p>
 <p>Still a trial rather than a default because the type system and dependency ergonomics are a step down from what I'd like.</p>"
+Next.js,trial,languages & frameworks,FALSE,"<p>Used it across several web apps; file-based routing and SSR are genuinely handy when I need them.</p>
+<p>Trial — for most of what I build, a plain React SPA on Vite is lighter.</p>"
+React Native / Expo,trial,languages & frameworks,FALSE,"<p>How I build mobile and TV apps — Expo's tooling makes the setup and build story painless.</p>
+<p>Trial because the ecosystem churn and native escape hatches still cost real time on anything non-trivial.</p>"
+SWR,trial,languages & frameworks,FALSE,"<p>My default data-fetching layer when a React app talks to an API: small, caching and revalidation for free.</p>"
 Trunk-based development,assess,techniques,FALSE,"<p>Short-lived branches and frequent merges are where I want to be, but it leans on strong CI and feature flags.</p>
 <p>Assessing how far I can push it without breaking flow.</p>"
+Dev Containers,assess,tools,FALSE,"<p>Reproducible, in-repo dev environments that work with code spaces and remote editors.</p>
+<p>Assess: overlaps a lot with what I already get from Nix and containers.</p>"
+GitLab CI,assess,tools,FALSE,"<p>Where I've had to run pipelines. Fine and capable, but GitHub Actions is my default.</p>"
+Playwright,assess,tools,FALSE,<p>Promising for end-to-end browser tests. I've only used it once and want more time with it before it's a default.</p>
+semantic-release,assess,tools,FALSE,"<p>Automates versioning, changelogs and publishing from commit messages.</p>
+<p>Assess: great where the commit discipline exists, extra ceremony where it doesn't.</p>"
+Storybook,assess,tools,FALSE,"<p>Useful for component-driven work and reviewing UI states, but it costs real setup and maintenance.</p>
+<p>Assess: worth it on larger design systems, not on small apps.</p>"
+Turborepo,assess,tools,FALSE,"<p>Monorepo task runner I've used on a couple of projects.</p>
+<p>Assess while I compare it against plain scripts — the caching is great when it works.</p>"
+C,assess,languages & frameworks,FALSE,"<p>Retro and homelab tinkering territory. I enjoy it for low-level experiments, but it's not something I want to maintain in production.</p>"
+Kotlin,assess,languages & frameworks,FALSE,<p>Where I'd go for Android work and native mobile features. One active project so far; still learning the idiom.</p>
 Rust,assess,languages & frameworks,FALSE,"<p>Interesting for performance-critical or memory-sensitive pieces, but I haven't shipped anything meaningful in it.</p>
 <p>Watching, not committing — the learning cost is real.</p>"
+TanStack Router,assess,languages & frameworks,FALSE,"<p>Type-safe routing with real search-param handling; I've started using it on newer apps.</p>
+<p>Assess until I've lived with it in something bigger.</p>"
 TDD,hold,techniques,FALSE,"<p>I want the safety net, but writing tests first isn't how I actually work and pretending otherwise wastes time. Prefer test-after plus strong types and integration tests.</p>
 <p>Revisit for gnarly logic where the design pressure genuinely helps.</p>"
+CSS-in-JS,hold,tools,FALSE,"<p>styled-components, Emotion and Chakra served me well earlier, but Tailwind plus a small component layer is simpler and faster now.</p>
+<p>Avoid for new work; keep only where an existing codebase already leans on it.</p>"
 Service mesh,hold,tools,FALSE,"<p>Too much operational complexity for the workloads I run; most of what I want — mTLS, retries, traffic shaping — is available in the ingress or the platform.</p>
 <p>Revisit when there are many heterogeneous services and a team to own it.</p>"
 GCP,hold,platforms,FALSE,"<p>Nothing wrong with it, but I don't have the operational familiarity and the ecosystem momentum isn't where I am.</p>
