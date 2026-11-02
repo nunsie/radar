@@ -1,7 +1,6 @@
 ---
 name: semantic-release
 ring: assess
-isNew: false
 ---
 Automates versioning, changelogs and publishing from commit messages.
 

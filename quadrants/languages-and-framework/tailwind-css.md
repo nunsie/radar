@@ -1,7 +1,6 @@
 ---
 name: Tailwind CSS
 ring: adopt
-isNew: false
 ---
 Utility CSS removes the naming-and-abstraction tax and lets me build consistent UI quickly.
 

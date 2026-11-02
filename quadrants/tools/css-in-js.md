@@ -1,7 +1,6 @@
 ---
 name: CSS-in-JS
 ring: hold
-isNew: false
 ---
 styled-components, Emotion and Chakra served me well earlier, but Tailwind plus a small component layer is simpler and faster now.
 

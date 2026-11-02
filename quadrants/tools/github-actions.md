@@ -1,7 +1,6 @@
 ---
 name: GitHub Actions
 ring: adopt
-isNew: false
 ---
 CI/CD that lives next to the code, with a huge marketplace of actions and no extra infrastructure to run.
 

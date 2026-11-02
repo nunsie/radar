@@ -1,7 +1,6 @@
 ---
 name: GitHub Copilot
 ring: trial
-isNew: true
 ---
 Generous subscription limits and a provider that plugs into Pi, so I can do agentic coding without metered API bills.
 

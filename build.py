@@ -10,7 +10,6 @@ Each entry has simple frontmatter followed by a Markdown body:
     ---
     name: Kubernetes
     ring: adopt          # adopt | trial | assess | hold
-    isNew: false
     ---
     Why it's in this ring, when to avoid it, alternatives...
 
@@ -18,9 +17,14 @@ The quadrant comes from the folder. The body becomes the BYOR description
 (converted to HTML). A `description:` field in the frontmatter can be used
 instead of a body for one-liners.
 
+`isNew` and `status` are not authored by hand. The previous radar.csv is used
+as the baseline: an entry that was not in it is `New`; an entry whose ring moved
+towards the centre is `Moved In`; towards the edge is `Moved Out`; otherwise
+`No Change`. Delete radar.csv to treat every entry as new.
+
 Usage:
-    python generate_radar.py            # writes radar.csv
-    python generate_radar.py --check    # validate only, exit non-zero on problems
+    python build.py            # writes radar.csv
+    python build.py --check    # validate only, exit non-zero on problems
 """
 
 from __future__ import annotations
@@ -50,9 +54,13 @@ QUADRANTS = {
 # Ring order, innermost first. BYOR accepts "hold" and displays it as "Caution".
 RINGS = ["adopt", "trial", "assess", "hold"]
 
-TRUE_VALUES = {"true", "yes", "y", "1"}
-FALSE_VALUES = {"false", "no", "n", "0", ""}
-
+# BYOR's optional movement column. Index into RINGS gives the direction: a lower
+# index is closer to the centre.
+NEW = "New"
+MOVED_IN = "Moved In"
+MOVED_OUT = "Moved Out"
+NO_CHANGE = "No Change"
+STATUSES = [NEW, MOVED_IN, MOVED_OUT, NO_CHANGE]
 
 @dataclass
 class Entry:
@@ -60,8 +68,12 @@ class Entry:
     name: str
     ring: str
     quadrant: str
-    is_new: bool
     description: str
+    status: str = NO_CHANGE
+
+    @property
+    def is_new(self) -> bool:
+        return self.status == NEW
 
 
 class EntryError(Exception):
@@ -124,15 +136,6 @@ def markdown_to_html(text: str) -> str:
     return "".join(f"<p>{inline(' '.join(p.split()))}</p>" for p in paragraphs)
 
 
-def parse_bool(value: str) -> bool:
-    lowered = value.strip().lower()
-    if lowered in TRUE_VALUES:
-        return True
-    if lowered in FALSE_VALUES:
-        return False
-    raise EntryError(f"isNew must be true or false, got {value!r}")
-
-
 def load_entry(path: Path, quadrant: str) -> Entry:
     fields, body = parse_frontmatter(path.read_text(encoding="utf-8"))
 
@@ -146,7 +149,8 @@ def load_entry(path: Path, quadrant: str) -> Entry:
     if ring not in RINGS:
         raise EntryError(f"invalid ring {ring!r} (expected one of: {', '.join(RINGS)})")
 
-    is_new = parse_bool(fields.get("isNew", "false"))
+    if "isNew" in fields or "status" in fields:
+        raise EntryError("isNew and status are derived from radar.csv; remove them")
 
     fm_description = fields.get("description", "").strip()
     if fm_description and body:
@@ -155,7 +159,47 @@ def load_entry(path: Path, quadrant: str) -> Entry:
     if not description:
         raise EntryError("no description (add a body or a 'description' field)")
 
-    return Entry(path, name, ring, quadrant, is_new, description)
+    return Entry(path, name, ring, quadrant, description)
+
+
+# --- change detection ---------------------------------------------------------
+
+
+def load_baseline(path: Path) -> dict[str, str]:
+    """Read the previous CSV as {name_lower: ring}. Missing file means no baseline."""
+    if not path.is_file():
+        return {}
+    try:
+        with path.open(newline="", encoding="utf-8") as fh:
+            reader = csv.DictReader(fh)
+            baseline: dict[str, str] = {}
+            for row in reader:
+                name = (row.get("name") or "").strip().lower()
+                ring = (row.get("ring") or "").strip().lower()
+                if name:
+                    baseline[name] = ring
+            return baseline
+    except (OSError, csv.Error, UnicodeDecodeError):
+        return {}
+
+
+def assign_status(entries: list[Entry], baseline: dict[str, str]) -> None:
+    """Set each entry's status by comparing its ring to the baseline.
+
+    A missing baseline (no previous radar.csv) makes every entry new.
+    """
+    for entry in entries:
+        previous = baseline.get(entry.name.lower())
+        if previous not in RINGS:
+            entry.status = NEW
+            continue
+        old, new = RINGS.index(previous), RINGS.index(entry.ring)
+        if new < old:
+            entry.status = MOVED_IN
+        elif new > old:
+            entry.status = MOVED_OUT
+        else:
+            entry.status = NO_CHANGE
 
 
 # --- main --------------------------------------------------------------------
@@ -218,9 +262,11 @@ def sort_key(entry: Entry) -> tuple[int, int, str]:
 def write_csv(entries: list[Entry], output: Path) -> None:
     with output.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.writer(fh, quoting=csv.QUOTE_MINIMAL, lineterminator="\n")
-        writer.writerow(["name", "ring", "quadrant", "isNew", "description"])
+        writer.writerow(["name", "ring", "quadrant", "isNew", "status", "description"])
         for e in sorted(entries, key=sort_key):
-            writer.writerow([e.name, e.ring, e.quadrant, "TRUE" if e.is_new else "FALSE", e.description])
+            writer.writerow(
+                [e.name, e.ring, e.quadrant, "TRUE" if e.is_new else "FALSE", e.status, e.description]
+            )
 
 
 def main() -> int:
@@ -240,10 +286,17 @@ def main() -> int:
         print(f"OK: {len(entries)} entries are valid.")
         return 0
 
+    baseline = load_baseline(args.output)
+    assign_status(entries, baseline)
     write_csv(entries, args.output)
-    counts = {r: sum(e.ring == r for e in entries) for r in RINGS}
-    summary = ", ".join(f"{n} {r}" for r, n in counts.items() if n)
-    print(f"Wrote {len(entries)} entries to {args.output.name} ({summary}).")
+
+    rings = {r: sum(e.ring == r for e in entries) for r in RINGS}
+    ring_summary = ", ".join(f"{n} {r}" for r, n in rings.items() if n)
+    changes = {s: sum(e.status == s for e in entries) for s in STATUSES}
+    change_summary = ", ".join(f"{n} {s.lower()}" for s, n in changes.items() if n)
+    if not baseline:
+        change_summary += " (no previous radar.csv)"
+    print(f"Wrote {len(entries)} entries to {args.output.name} ({ring_summary}; {change_summary}).")
     return 0
 
 

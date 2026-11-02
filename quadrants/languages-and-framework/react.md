@@ -1,7 +1,6 @@
 ---
 name: React
 ring: adopt
-isNew: false
 ---
 Still my default view layer: the component model, ecosystem and my familiarity make me productive immediately.
 

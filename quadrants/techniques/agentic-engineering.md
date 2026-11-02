@@ -1,7 +1,6 @@
 ---
 name: Agentic engineering
 ring: trial
-isNew: true
 ---
 Working with coding agents as a real part of the loop — giving them tools, context and multi-step goals rather than treating them as fancy autocomplete.
 

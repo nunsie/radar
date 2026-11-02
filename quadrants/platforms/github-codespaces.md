@@ -1,7 +1,6 @@
 ---
 name: GitHub Codespaces
 ring: trial
-isNew: true
 ---
 Hosted dev containers that spin up per task — the disposable, reproducible workspace a software factory wants for running agents and their checks in parallel.
 

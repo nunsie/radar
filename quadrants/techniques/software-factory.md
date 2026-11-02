@@ -1,7 +1,6 @@
 ---
 name: Software factory
 ring: trial
-isNew: true
 ---
 A pipeline where agents take work end to end — spec in, reviewed change out — with strong automated checks acting as the gate.
 

@@ -1,7 +1,6 @@
 ---
 name: Docker
 ring: adopt
-isNew: false
 ---
 Default way to package and run anything, dev and prod. The image is the unit of deployment.
 

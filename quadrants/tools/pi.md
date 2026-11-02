@@ -1,7 +1,6 @@
 ---
 name: Pi coding agent
 ring: trial
-isNew: true
 ---
 My default coding agent for real work: a small, hackable CLI that runs the model against actual tools — read, edit, bash — with the session in my terminal and the diff in front of me.
 

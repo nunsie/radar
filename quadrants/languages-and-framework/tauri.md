@@ -1,7 +1,6 @@
 ---
 name: Tauri
 ring: adopt
-isNew: false
 ---
 Default for desktop apps: a React front end over a Rust core, with small binaries and no bundled browser.
 

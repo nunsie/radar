@@ -1,7 +1,6 @@
 ---
 name: Go
 ring: trial
-isNew: false
 ---
 Where I'd go for small, fast services and CLI tools: quick builds, a single static binary, straightforward concurrency.
 

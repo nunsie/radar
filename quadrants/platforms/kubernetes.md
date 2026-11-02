@@ -1,7 +1,6 @@
 ---
 name: Kubernetes
 ring: trial
-isNew: false
 ---
 Valuable once there are many services and a platform team, but it's a lot of machinery for a small system.
 

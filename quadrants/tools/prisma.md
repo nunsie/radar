@@ -1,7 +1,6 @@
 ---
 name: Prisma
 ring: trial
-isNew: false
 ---
 Default ORM when I need one: schema-first, and the migration story is pleasant.
 

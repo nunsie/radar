@@ -1,7 +1,6 @@
 ---
 name: Cloudflare
 ring: trial
-isNew: false
 ---
 DNS, Workers, R2 and the rest are fast, cheap and pleasant to use.
 

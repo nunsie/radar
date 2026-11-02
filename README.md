@@ -21,7 +21,6 @@ Create a Markdown file in the right quadrant folder under `quadrants/`:
 ---
 name: Kubernetes
 ring: adopt        # adopt | trial | assess | hold
-isNew: false       # true shows it as new on the radar
 ---
 Why it's in this ring, when I'd avoid it, and what I'd use instead.
 Markdown (bold, links, paragraphs) is converted to HTML for the radar.
@@ -36,6 +35,20 @@ python build.py --check  # validate only
 ```
 
 Git history is the changelog: moving an entry between rings is just a commit.
+
+### New and moved blips
+
+`isNew` and the movement arrows are not authored by hand. `build.py` compares the
+entries against the existing `radar.csv` and fills in BYOR's optional `status`
+column:
+
+- **New** – the name was not in the previous `radar.csv`.
+- **Moved In** – the ring moved towards the centre (e.g. `assess` → `trial`).
+- **Moved Out** – the ring moved towards the edge (e.g. `trial` → `assess`).
+- **No Change** – same ring as before.
+
+Because `radar.csv` is the baseline, the flags describe the change since the last
+build and reset on the next one. Delete `radar.csv` to treat every entry as new.
 
 CI rebuilds `radar.csv` automatically on every push to `main` that touches `quadrants/`,
 `build.py` or `requirements.txt`, and commits the result. Pull requests run the validator

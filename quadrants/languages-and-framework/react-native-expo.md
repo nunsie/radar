@@ -1,7 +1,6 @@
 ---
 name: React Native / Expo
 ring: trial
-isNew: false
 ---
 How I build mobile and TV apps — Expo's tooling makes the setup and build story painless.
 

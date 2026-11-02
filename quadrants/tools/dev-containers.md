@@ -1,7 +1,6 @@
 ---
 name: Dev Containers
 ring: assess
-isNew: false
 ---
 Reproducible, in-repo dev environments that work with code spaces and remote editors.
 

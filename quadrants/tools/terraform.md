@@ -1,7 +1,6 @@
 ---
 name: Terraform / OpenTofu
 ring: adopt
-isNew: false
 ---
 Default for provisioning cloud infrastructure: declarative, reviewable and state-tracked. OpenTofu is the hedge if licensing becomes a problem.
 

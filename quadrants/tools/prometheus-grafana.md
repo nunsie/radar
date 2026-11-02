@@ -1,7 +1,6 @@
 ---
 name: Prometheus + Grafana
 ring: trial
-isNew: false
 ---
 The standard metrics, alerting and dashboarding pair, and it plays nicely with OpenTelemetry.
 

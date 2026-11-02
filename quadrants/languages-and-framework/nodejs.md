@@ -1,7 +1,6 @@
 ---
 name: Node.js
 ring: adopt
-isNew: false
 ---
 Default runtime for TypeScript/JavaScript work, server and CLI alike. One language across the stack is the main draw.
 

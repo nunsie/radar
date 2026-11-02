@@ -1,7 +1,6 @@
 ---
 name: Turborepo
 ring: assess
-isNew: false
 ---
 Monorepo task runner I've used on a couple of projects.
 
