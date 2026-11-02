@@ -41,6 +41,10 @@ Tailwind CSS,adopt,languages & frameworks,FALSE,"<p>Utility CSS removes the nami
 <p>Fine to skip if the team already has a strong component library or design-token system.</p>"
 TypeScript,adopt,languages & frameworks,FALSE,"<p>Default for anything with a UI or a browser in the loop. Types catch the class of bug I actually hit, and the tooling is the best in class.</p>
 <p>Not worth the ceremony for throwaway scripts.</p>"
+Agentic engineering,trial,techniques,TRUE,"<p>Working with coding agents as a real part of the loop — giving them tools, context and multi-step goals rather than treating them as fancy autocomplete.</p>
+<p>Trial: worth doing on real work where I can review the output and the blast radius is contained. I keep humans on the design, the interfaces and the final call.</p>"
+Software factory,trial,techniques,TRUE,"<p>A pipeline where agents take work end to end — spec in, reviewed change out — with strong automated checks acting as the gate.</p>
+<p>Trial: promising on well-specified, well-tested, low-ambiguity work. Not yet for anything where the requirements are still being discovered or the failure mode is expensive.</p>"
 Prometheus + Grafana,trial,tools,FALSE,"<p>The standard metrics, alerting and dashboarding pair, and it plays nicely with OpenTelemetry.</p>
 <p>Trial because running it well has a real operational cost.</p>"
 RabbitMQ,trial,tools,FALSE,"<p>Where I'd reach for a traditional broker with real routing and acknowledgements.</p>
