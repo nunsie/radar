@@ -4,7 +4,7 @@ My opinions on languages, frameworks, tools, platforms and techniques, in the st
 [Thoughtworks Technology Radar](https://www.thoughtworks.com/radar). These are my views in
 my context, not universal verdicts.
 
-**👉 [View the radar](#)
+**👉 [View the radar](https://radar.thoughtworks.com/?documentId=https%3A%2F%2Fraw.githubusercontent.com%2Fnunsie%2Fradar%2Frefs%2Fheads%2Fmain%2Fradar.csv)**
 
 ## Rings
 
