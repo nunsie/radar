@@ -16,8 +16,7 @@ PostgreSQL,adopt,tools,FALSE,No Change,"<p>Default database, full stop. JSONB, e
 <p>Reach past it only for genuinely specialised needs — search, extreme write scale, embeddings.</p>"
 Redis,adopt,tools,FALSE,No Change,"<p>Default cache, lightweight queue and ephemeral state store. Cheap to run and hard to misuse.</p>
 <p>Not a primary source of truth.</p>"
-Ruff,adopt,tools,FALSE,No Change,"<p>Replaces flake8, isort and Black with one fast tool and sane defaults. No reason to keep the old chain.</p>"
-Terraform / OpenTofu,adopt,tools,FALSE,No Change,"<p>Default for provisioning cloud infrastructure: declarative, reviewable and state-tracked. OpenTofu is the hedge if licensing becomes a problem.</p>
+Terraform,adopt,tools,TRUE,New,"<p>Default for provisioning cloud infrastructure: declarative, reviewable and state-tracked. OpenTofu is the hedge if licensing becomes a problem.</p>
 <p>I'd avoid it for dynamic, high-churn resources better managed from the application or from Kubernetes manifests.</p>"
 uv,adopt,tools,FALSE,No Change,"<p>Fast, single tool for virtualenvs, dependencies and Python versions. It has made the old pip/virtualenv/pyenv dance obsolete for me.</p>"
 Vite,adopt,tools,FALSE,No Change,"<p>Default frontend build and dev server: fast HMR, minimal config, works across most stacks.</p>
@@ -29,16 +28,10 @@ AWS Lambda / serverless,adopt,platforms,FALSE,No Change,"<p>Default for small, e
 Docker Compose,adopt,platforms,FALSE,No Change,"<p>Default way to run a multi-service stack locally. If something can't run under Compose, that's usually a smell worth fixing.</p>"
 GitHub,adopt,platforms,FALSE,No Change,"<p>Default home for code, review, issues and CI. Network effects make it the obvious choice.</p>"
 Linux,adopt,platforms,FALSE,No Change,"<p>Everything I deploy runs here, and with containers and Nix it's a workable dev target too.</p>"
-Nix / NixOS,adopt,platforms,FALSE,No Change,"<p>Reproducible, declarative environments for dev and servers — the real answer to ""works on my machine"".</p>
-<p>The steep learning curve is the cost, so adopt with eyes open.</p>"
 Node.js,adopt,languages & frameworks,FALSE,No Change,"<p>Default runtime for TypeScript/JavaScript work, server and CLI alike. One language across the stack is the main draw.</p>
 <p>I'd move to Go when I need predictable throughput or a small container image.</p>"
-Python,adopt,languages & frameworks,FALSE,No Change,"<p>Default language for almost everything I build: services, scripts, data work and glue. The ecosystem and the fact that most people can read it beat any performance argument for the kind of work I do.</p>
-<p>I'd reach for something else only when I need real concurrency or a single static binary.</p>"
 React,adopt,languages & frameworks,FALSE,No Change,"<p>Still my default view layer: the component model, ecosystem and my familiarity make me productive immediately.</p>
 <p>I'd avoid it for essentially static pages where plain HTML or a server-rendered template carries far less machinery.</p>"
-Tailwind CSS,adopt,languages & frameworks,FALSE,No Change,"<p>Utility CSS removes the naming-and-abstraction tax and lets me build consistent UI quickly.</p>
-<p>Fine to skip if the team already has a strong component library or design-token system.</p>"
 Tauri,adopt,languages & frameworks,FALSE,No Change,"<p>Default for desktop apps: a React front end over a Rust core, with small binaries and no bundled browser.</p>
 <p>Used it for a run of launchers and it's my go-to over Electron.</p>"
 TypeScript,adopt,languages & frameworks,FALSE,No Change,"<p>Default for anything with a UI or a browser in the loop. Types catch the class of bug I actually hit, and the tooling is the best in class.</p>
@@ -77,7 +70,6 @@ Next.js,trial,languages & frameworks,FALSE,No Change,"<p>Used it across several 
 <p>Trial — for most of what I build, a plain React SPA on Vite is lighter.</p>"
 React Native / Expo,trial,languages & frameworks,FALSE,No Change,"<p>How I build mobile and TV apps — Expo's tooling makes the setup and build story painless.</p>
 <p>Trial because the ecosystem churn and native escape hatches still cost real time on anything non-trivial.</p>"
-SWR,trial,languages & frameworks,FALSE,No Change,"<p>My default data-fetching layer when a React app talks to an API: small, caching and revalidation for free.</p>"
 Trunk-based development,assess,techniques,FALSE,No Change,"<p>Short-lived branches and frequent merges are where I want to be, but it leans on strong CI and feature flags.</p>
 <p>Assessing how far I can push it without breaking flow.</p>"
 Dev Containers,assess,tools,FALSE,No Change,"<p>Reproducible, in-repo dev environments that work with code spaces and remote editors.</p>
@@ -94,8 +86,6 @@ C,assess,languages & frameworks,FALSE,No Change,"<p>Retro and homelab tinkering 
 Kotlin,assess,languages & frameworks,FALSE,No Change,<p>Where I'd go for Android work and native mobile features. One active project so far; still learning the idiom.</p>
 Rust,assess,languages & frameworks,FALSE,No Change,"<p>Interesting for performance-critical or memory-sensitive pieces, but I haven't shipped anything meaningful in it.</p>
 <p>Watching, not committing — the learning cost is real.</p>"
-TanStack Router,assess,languages & frameworks,FALSE,No Change,"<p>Type-safe routing with real search-param handling; I've started using it on newer apps.</p>
-<p>Assess until I've lived with it in something bigger.</p>"
 TDD,hold,techniques,FALSE,No Change,"<p>I want the safety net, but writing tests first isn't how I actually work and pretending otherwise wastes time. Prefer test-after plus strong types and integration tests.</p>
 <p>Revisit for gnarly logic where the design pressure genuinely helps.</p>"
 Claude Code,hold,tools,FALSE,No Change,"<p>Strong agent, but the usage limits bite right when agentic work gets going, and free models plus free-tier agents now get me 90% of the way there.</p>
@@ -104,8 +94,6 @@ CSS-in-JS,hold,tools,FALSE,No Change,"<p>styled-components, Emotion and Chakra s
 <p>Avoid for new work; keep only where an existing codebase already leans on it.</p>"
 OpenCode,hold,tools,FALSE,No Change,"<p>Capable agent CLI, but it overlaps almost entirely with Pi and I don't want a second config, permission model and update treadmill for the same job.</p>
 <p>Revisit if I need its provider breadth, or if Pi stops being the right fit.</p>"
-Service mesh,hold,tools,FALSE,No Change,"<p>Too much operational complexity for the workloads I run; most of what I want — mTLS, retries, traffic shaping — is available in the ingress or the platform.</p>
-<p>Revisit when there are many heterogeneous services and a team to own it.</p>"
 GCP,hold,platforms,FALSE,No Change,"<p>Nothing wrong with it, but I don't have the operational familiarity and the ecosystem momentum isn't where I am.</p>
 <p>Prefer AWS unless a specific product pulls me in.</p>"
 Vercel,hold,platforms,FALSE,No Change,"<p>Excellent for Next.js demos, but pricing cliffs and platform lock-in make me cautious for anything with real traffic or a long life.</p>
